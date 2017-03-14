@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container pb-2">
+		<div class="congress-header pb-1 pr-1">
+			<h1 class="text-primary">
+				{{ title }}
+				</h1></div>
+			{% for congressperson in congresspeople %}
+			{% if congressperson.party == "D" %}
+					<div class="representative democrat">
+					{% elif congressperson.party == "R" %}
+					<div class="representative republican">
+					{% else %}
+					<div class="representative independant">
+			{% endif %}
+			<div class="row">
+				<div class="col-sm-4"> <img src="https://theunitedstates.io/images/congress/225x275/{{congressperson.bioguide_id}}.jpg" alt="{{congressperson.first_name}} {{congressperson.last_name}}"
+					{% if congressperson.gender == "M" %}  onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Generic-person.svg/1000px-Generic-person.svg.png'"
+					{% else %}
+					 onerror="this.src='http://preciouspeople.co.nz/wp-content/uploads/2015/02/user-icon-female-white-hi-large.png'"
+					{% endif %}
+					 class="img-fluid rounded-circle mx-auto d-block"></div>
+				<div class="col-sm-8">
+					<h1>{{congressperson.title}}. {{congressperson.first_name}} {{congressperson.last_name}}</h1>
+					<h3>{{congressperson.party}}-{{congressperson.state}} {% if congressperson.district %} (District {{congressperson.district}}) {% endif %}</h3>
+					<ul class="list-unstyled">
+						<li><i class="fa fa-phone" aria-hidden="true"></i>{{congressperson.phone}} </li>
+						<li><i class="fa fa-fax" aria-hidden="true"></i>{{congressperson.fax}}</li>
+						{% if congressperson.contact_form %}
+						<li><i class="fa fa-envelope" aria-hidden="true"></i><a href="{{congressperson.contact_form}}" target="_blank">Email</a></li>
+						{% endif %}
+						<li><i class="fa fa-info-circle" aria-hidden="true"></i><a href="{{congressperson.website}}" target="_blank">{{congressperson.website}}</a> </li>
+					</ul>
+					{% if congressperson.facebook_id %}
+					<a href="http://www.facebook.com/{{congressperson.facebook_id}}" target="_blank"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+					{% endif %}
+					{% if congressperson.twitter_id %}
+					<a href="http://twitter.com/{{congressperson.twitter_id}}" target="_blank"><i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i></a>
+					{% endif %}
+					{% if congressperson.youtube_id %}
+					<a href="http://youtube.com/{{congressperson.youtube_id}}" target="_blank" ><i class="fa fa-youtube-square fa-3x" aria-hidden="true"></i> </a>
+					{% endif %}
+					</div>
+			</div>
+		</div>
+					{% endfor %}
+		<div class="row">
+			<div class="col-md-8"></div>
+			<div class="col-md-4">
+				<a class="btn btn-primary btn-block mt-3" href="/">Go Back</a>
+			</div>
+		</div>
+	</div>
+	{% endblock %}

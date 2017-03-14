@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid pb-2">
+		<div class="congress-header pb-1 pr-1">
+			<h1 class="text-primary">Find Your Representatives</h1></div>
+		<p>Enter your address in the search box and click the button to find your representatives</p>
+		<input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+		<div id="map"></div>
+		<div id="infowindow-content"> <span id="place-name" class="title"></span>
+			<br> <span id="place-address"></span> </div>
+		<div class="row">
+			<div class="col-md-9"></div>
+			<div class="col-md-3">
+				<form action="/get-reps" method="get">
+					<input type="hidden" name="lat" id="lat">
+					<input type="hidden" name="lng" id="lng">
+					<input type="submit" id="submit-button" class="btn btn-primary btn-block mt-3 clickable-button" value="Select an Address" disabled> </form>
+			</div>
+		</div>
+	</div>
+	<script src="{% static "js/congress-map.js" %}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5oD_DeJn89nUF8Ka-P2swqZ5ToN1hwAQ&libraries=places&callback=initMap" async defer></script>
+{% endblock %}
